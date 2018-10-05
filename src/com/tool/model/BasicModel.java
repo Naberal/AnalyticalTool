@@ -1,5 +1,8 @@
 package com.tool.model;
 
+/**
+ * Base model of the data line which consists of shared data of the query and the waiting time.
+ */
 public class BasicModel {
     private char character;
     private long service;
@@ -82,9 +85,15 @@ public class BasicModel {
         } else throw new IllegalArgumentException();
     }
 
-    public boolean similar(Object o) {
+    /**
+     * Method for checking query data and waiting time for similarity
+     *
+     * @param o must extend {@link BasicModel}
+     * @return true if objects similar
+     */
+    public boolean similar(BasicModel o) {
 
-        BasicModel that = (BasicModel) o;
+        BasicModel that = o;
 
         if (response != that.response) return false;
         if (service != that.service) {

@@ -1,13 +1,17 @@
 package com.tool.view;
 
-import com.tool.controller.Controller;
-
-import java.io.File;
 import java.util.List;
 
+/**
+ * Class is responsible for the output of the analysis
+ */
 public class PrintResult {
-    public void printResult(File file) {
-        List<Integer> list = new Controller().controll(file);
+    /**
+     * Method print analysis to console
+     *
+     * @param list for print to console
+     */
+    public void print(List<Integer> list) {
         for (Integer i : list
                 ) {
             if (i == 0) System.out.println("-");

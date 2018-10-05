@@ -1,8 +1,10 @@
 package com.tool.model;
 
 import java.time.LocalDate;
-import java.util.Date;
 
+/**
+ * Query model  it expand {@link BasicModel} and expands it with time frames
+ */
 public class QueryModel extends BasicModel {
 
     private LocalDate dateFrom;
@@ -95,6 +97,18 @@ public class QueryModel extends BasicModel {
 
     public void setDateTo(LocalDate dateTo) {
         this.dateTo = dateTo;
+    }
+
+    /**
+     * Checking the time compliance with the time frame
+     */
+    public boolean validTime(LocalDate date) {
+        if (this.dateFrom.equals(date) ||
+                this.dateFrom.isBefore(date) &&
+                        this.getDateTo().isAfter(date)) {
+            return true;
+        }
+        return false;
     }
 
 }

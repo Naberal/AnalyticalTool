@@ -7,6 +7,9 @@ import com.tool.model.WaitingTimeModel;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ *  Class implements {@link Analytic}
+ */
 public class AnalyticImp implements Analytic {
     private WaitingTimeModel waitingTime;
     private QueryModel query;
@@ -24,10 +27,7 @@ public class AnalyticImp implements Analytic {
                     if (dataIn.get(j).getCharacter() == 'C' && dataIn.get(j).similar(dataIn.get(i))) {
                         waitingTime = (WaitingTimeModel) dataIn.get(j);
                         query = (QueryModel) dataIn.get(i);
-                        boolean before = query.getDateFrom().equals(waitingTime.getDate()) ||
-                                query.getDateFrom().isBefore(waitingTime.getDate())
-                                        && query.getDateTo().isAfter(waitingTime.getDate());
-                        if (before) {
+                        if (query.validTime(waitingTime.getDate())) {
                             count++;
                             analyticTime = (analyticTime + waitingTime.getTime()) / count;
                         }

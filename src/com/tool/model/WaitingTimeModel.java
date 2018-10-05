@@ -1,8 +1,10 @@
 package com.tool.model;
 
 import java.time.LocalDate;
-import java.util.Date;
 
+/**
+ * Waiting time model  it expand {@link BasicModel} and extends its query time and execution time
+ */
 public class WaitingTimeModel extends BasicModel {
     private LocalDate date;
     private int time;
@@ -80,7 +82,6 @@ public class WaitingTimeModel extends BasicModel {
         super.setResponse(response);
     }
 
-
     public LocalDate getDate() {
         return date;
     }
@@ -96,4 +97,5 @@ public class WaitingTimeModel extends BasicModel {
     public void setTime(int time) {
         this.time = time;
     }
+
 }

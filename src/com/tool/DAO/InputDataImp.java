@@ -9,6 +9,9 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Class implements {@link InputData}
+ */
 public class InputDataImp implements InputData {
     private List<BasicModel> data = new ArrayList<>();
 
@@ -43,12 +46,12 @@ public class InputDataImp implements InputData {
     private void AddQueryModel(String[] dataInLine) throws Exception {
         QueryModel model = new QueryModel();
         setDataToModel(model, dataInLine);
-        String[] dataInLine1 = dataInLine[4].split("-");
-        String[] dateFrom = dataInLine1[0].split("\\.");
+        String[] date = dataInLine[4].split("-");
+        String[] dateFrom = date[0].split("\\.");
         model.setDateFrom(LocalDate.of(Integer.parseInt(dateFrom[2]), Integer.parseInt(dateFrom[1]),
                 Integer.parseInt(dateFrom[0])));
-        if (dataInLine1.length == 2) {
-            String[] dateTo = dataInLine1[1].split("\\.");
+        if (date.length == 2) {
+            String[] dateTo = date[1].split("\\.");
             model.setDateTo(LocalDate.of(Integer.parseInt(dateTo[2]), Integer.parseInt(dateTo[1]),
                     Integer.parseInt(dateTo[0])));
         }
@@ -58,9 +61,9 @@ public class InputDataImp implements InputData {
     private void AddWaitingTimeModel(String[] dataInLine) throws Exception {
         WaitingTimeModel model = new WaitingTimeModel();
         setDataToModel(model, dataInLine);
-        String[] dataInLine1 = dataInLine[4].split("\\.");
-        model.setDate(LocalDate.of(Integer.parseInt(dataInLine1[2]), Integer.parseInt(dataInLine1[1]),
-                Integer.parseInt(dataInLine1[0])));
+        String[] date = dataInLine[4].split("\\.");
+        model.setDate(LocalDate.of(Integer.parseInt(date[2]), Integer.parseInt(date[1]),
+                Integer.parseInt(date[0])));
         model.setTime(Integer.parseInt(dataInLine[5]));
         data.add(model);
     }
@@ -77,8 +80,5 @@ public class InputDataImp implements InputData {
         else model.setQuestion(Long.parseLong(dataInLine2[0]));
         if (dataInLine2.length == 2) model.setCategory(Long.parseLong(dataInLine2[1]));
         if (dataInLine2.length == 3) model.setSubCategory(Long.parseLong(dataInLine2[2]));
-
     }
-
-
 }
