@@ -16,9 +16,14 @@ import java.util.List;
  */
 public class InputDataImp implements InputData {
     private List<BasicModel> data = new ArrayList<>();
+    private File file;
+
+    public InputDataImp(File file) {
+        this.file = file;
+    }
 
     @Override
-    public List<BasicModel> getData(File file) {
+    public List<BasicModel> getData() {
         try (FileReader fileReader = new FileReader(file);
              BufferedReader bufferedReader = new BufferedReader(fileReader)) {
             String buffer;
@@ -28,14 +33,14 @@ public class InputDataImp implements InputData {
                 try {
                     String[] dataInLine = buffer.split(" ");
                     if (dataInLine[0].equals("C")) {
-                        AddWaitingTimeModel(dataInLine);
+                        data.add(parseWaitingTimeModel(dataInLine));
                     }
                     if (dataInLine[0].equals("D")) {
-                        AddQueryModel(dataInLine);
+                        data.add(parseQueryModel(dataInLine));
                     }
                 } catch (NullPointerException e) {
                     return data;
-                } catch (Exception e) {
+                } catch (IllegalArgumentException e) {
                     continue;
                 }
             }
@@ -45,38 +50,41 @@ public class InputDataImp implements InputData {
         return data;
     }
 
-    private void AddQueryModel(String[] dataInLine) throws Exception {
+    private QueryModel parseQueryModel(String[] data) {
         QueryModel model = new QueryModel();
-        setDataToModel(model, dataInLine);
-        String[] date = dataInLine[4].split("-");
+        parseBasicModel(model, data);
+        String[] date = data[4].split("-");
         model.setDateFrom(LocalDate.parse(date[0], DateTimeFormatter.ofPattern("dd.MM.yyyy")));
         if (date.length == 2) {
             model.setDateTo((LocalDate.parse(date[1], DateTimeFormatter.ofPattern("dd.MM.yyyy"))));
         }
-        data.add(model);
+        return model;
     }
 
-    private void AddWaitingTimeModel(String[] dataInLine) throws Exception {
+    private WaitingTimeModel parseWaitingTimeModel(String[] data) {
         WaitingTimeModel model = new WaitingTimeModel();
-        setDataToModel(model, dataInLine);
-        model.setDate(LocalDate.parse(dataInLine[4], DateTimeFormatter.ofPattern("dd.MM.yyyy")));
-        model.setTime(Integer.parseInt(dataInLine[5]));
-        data.add(model);
+        parseBasicModel(model, data);
+        model.setDate(LocalDate.parse(data[4], DateTimeFormatter.ofPattern("dd.MM.yyyy")));
+        model.setTime(Integer.parseInt(data[5]));
+        return model;
     }
 
-    private void setDataToModel(BasicModel model, String[] dataInLine) throws Exception {
-        if (dataInLine[0].charAt(0) == 'C') {
+    private void parseBasicModel(BasicModel model, String[] data) {
+        if (data[0].charAt(0) == 'C') {
             model.setCharacter(Character.C);
-        } else model.setCharacter(Character.D);
-        String[] dataInLine1 = dataInLine[1].split("\\.");
-        String[] dataInLine2 = dataInLine[2].split("\\.");
-        model.setResponse(dataInLine[3].charAt(0));
-        if (dataInLine1[0].equals("*")) return;
-        else model.setService(Long.parseLong(dataInLine1[0]));
-        if (dataInLine1.length == 2) model.setVariation(Long.parseLong(dataInLine1[1]));
-        if (dataInLine2[0].equals("*")) return;
-        else model.setQuestion(Long.parseLong(dataInLine2[0]));
-        if (dataInLine2.length == 2) model.setCategory(Long.parseLong(dataInLine2[1]));
-        if (dataInLine2.length == 3) model.setSubCategory(Long.parseLong(dataInLine2[2]));
+        }
+        if (data[0].charAt(0) == 'D') {
+            model.setCharacter(Character.D);
+        }
+        String[] serviceAndVariation = data[1].split("\\.");
+        String[] questionCategories = data[2].split("\\.");
+        model.setResponse(data[3].charAt(0));
+        if (serviceAndVariation[0].equals("*")) return;
+        else model.setService(Long.parseLong(serviceAndVariation[0]));
+        if (serviceAndVariation.length == 2) model.setVariation(Long.parseLong(serviceAndVariation[1]));
+        if (questionCategories[0].equals("*")) return;
+        else model.setQuestion(Long.parseLong(questionCategories[0]));
+        if (questionCategories.length == 2) model.setCategory(Long.parseLong(questionCategories[1]));
+        if (questionCategories.length == 3) model.setSubCategory(Long.parseLong(questionCategories[2]));
     }
 }

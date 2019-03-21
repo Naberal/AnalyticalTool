@@ -10,7 +10,7 @@ public class Main {
      * Main class
      */
     public static void main(String[] args) {
-        new Controller().controller((new File("/home/naberal/IdeaProjects/AnalyticalTool/src/main/Data")));
+        new Controller().analyticController(new File(args[0]));
     }
 }
 

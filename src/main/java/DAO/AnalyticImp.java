@@ -21,7 +21,8 @@ public class AnalyticImp implements Analytic {
                 int count = 0;
                 int analyticTime = 0;
                 for (int j = 0; j < i; j++) {
-                    if (dataIn.get(j).getCharacter() == Character.C && dataIn.get(j).similar(dataIn.get(i))) {
+                    if (dataIn.get(j).getCharacter() == Character.C &&
+                            dataIn.get(j).similar(dataIn.get(i))) {
                         WaitingTimeModel waitingTime = (WaitingTimeModel) dataIn.get(j);
                         QueryModel query = (QueryModel) dataIn.get(i);
                         if (query.validTime(waitingTime.getDate())) {

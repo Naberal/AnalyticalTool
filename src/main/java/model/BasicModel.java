@@ -20,14 +20,14 @@ public class BasicModel {
     }
 
     public void setCharacter(Character character) {
-            this.character = character;
+        this.character = character;
     }
 
     public long getService() {
         return service;
     }
 
-    public void setService(long service) {
+    public void setService(long service) throws IllegalArgumentException {
         if (service >= 0 && service <= 10) {
             this.service = service;
         } else throw new IllegalArgumentException();
@@ -37,7 +37,7 @@ public class BasicModel {
         return variation;
     }
 
-    public void setVariation(long variation) {
+    public void setVariation(long variation) throws IllegalArgumentException {
         if (variation >= 0 && variation <= 3) {
             this.variation = variation;
         } else throw new IllegalArgumentException();
@@ -47,7 +47,7 @@ public class BasicModel {
         return question;
     }
 
-    public void setQuestion(long question) {
+    public void setQuestion(long question) throws IllegalArgumentException {
         if (question >= 0 && question <= 10) {
             this.question = question;
         } else throw new IllegalArgumentException();
@@ -57,7 +57,7 @@ public class BasicModel {
         return category;
     }
 
-    public void setCategory(long category) {
+    public void setCategory(long category) throws IllegalArgumentException {
         if (category >= 0 && category <= 20) {
             this.category = category;
         } else throw new IllegalArgumentException();
@@ -67,7 +67,7 @@ public class BasicModel {
         return subCategory;
     }
 
-    public void setSubCategory(long subCategory) {
+    public void setSubCategory(long subCategory) throws IllegalArgumentException {
         if (subCategory >= 0 && subCategory <= 5) {
             this.subCategory = subCategory;
         } else throw new IllegalArgumentException();
@@ -77,7 +77,7 @@ public class BasicModel {
         return response;
     }
 
-    public void setResponse(char response) {
+    public void setResponse(char response) throws IllegalArgumentException {
         if (service >= 0 && service <= 10) {
             this.response = response;
         } else throw new IllegalArgumentException();

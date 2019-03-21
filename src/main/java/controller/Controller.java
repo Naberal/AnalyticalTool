@@ -8,13 +8,11 @@ import java.io.File;
 import java.util.List;
 
 /**
- * Class controller
+ * Class analyticController
  */
 public class Controller {
-    private PrintResult result= new PrintResult();
-
-    public void controller(File file) {
-        List<Integer> list = new AnalyticImp().analysis(new InputDataImp().getData(file));
-        result.print(list);
+    public void analyticController(File file) {
+        List<Integer> list = new AnalyticImp().analysis(new InputDataImp(file).getData());
+        new PrintResult().print(list);
     }
 }
