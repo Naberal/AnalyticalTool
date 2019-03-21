@@ -1,8 +1,9 @@
-package com.tool.DAO;
+package main.java.DAO;
 
-import com.tool.model.BasicModel;
-import com.tool.model.QueryModel;
-import com.tool.model.WaitingTimeModel;
+import main.java.model.BasicModel;
+import main.java.model.Character;
+import main.java.model.QueryModel;
+import main.java.model.WaitingTimeModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,22 +12,18 @@ import java.util.List;
  *  Class implements {@link Analytic}
  */
 public class AnalyticImp implements Analytic {
-    private WaitingTimeModel waitingTime;
-    private QueryModel query;
     private List<Integer> outData = new ArrayList<>();
-    private int count;
-    private int analyticTime;
 
     @Override
     public List<Integer> analysis(List<BasicModel> dataIn) {
         for (int i = 0; i < dataIn.size(); i++) {
-            if (dataIn.get(i).getCharacter() == 'D') {
-                count = 0;
-                analyticTime = 0;
+            if (dataIn.get(i).getCharacter() == Character.D) {
+                int count = 0;
+                int analyticTime = 0;
                 for (int j = 0; j < i; j++) {
-                    if (dataIn.get(j).getCharacter() == 'C' && dataIn.get(j).similar(dataIn.get(i))) {
-                        waitingTime = (WaitingTimeModel) dataIn.get(j);
-                        query = (QueryModel) dataIn.get(i);
+                    if (dataIn.get(j).getCharacter() == Character.C && dataIn.get(j).similar(dataIn.get(i))) {
+                        WaitingTimeModel waitingTime = (WaitingTimeModel) dataIn.get(j);
+                        QueryModel query = (QueryModel) dataIn.get(i);
                         if (query.validTime(waitingTime.getDate())) {
                             count++;
                             analyticTime = (analyticTime + waitingTime.getTime()) / count;

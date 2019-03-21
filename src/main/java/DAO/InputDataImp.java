@@ -1,11 +1,13 @@
-package com.tool.DAO;
+package main.java.DAO;
 
-import com.tool.model.BasicModel;
-import com.tool.model.QueryModel;
-import com.tool.model.WaitingTimeModel;
+import main.java.model.BasicModel;
+import main.java.model.Character;
+import main.java.model.QueryModel;
+import main.java.model.WaitingTimeModel;
 
 import java.io.*;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,13 +49,9 @@ public class InputDataImp implements InputData {
         QueryModel model = new QueryModel();
         setDataToModel(model, dataInLine);
         String[] date = dataInLine[4].split("-");
-        String[] dateFrom = date[0].split("\\.");
-        model.setDateFrom(LocalDate.of(Integer.parseInt(dateFrom[2]), Integer.parseInt(dateFrom[1]),
-                Integer.parseInt(dateFrom[0])));
+        model.setDateFrom(LocalDate.parse(date[0], DateTimeFormatter.ofPattern("dd.MM.yyyy")));
         if (date.length == 2) {
-            String[] dateTo = date[1].split("\\.");
-            model.setDateTo(LocalDate.of(Integer.parseInt(dateTo[2]), Integer.parseInt(dateTo[1]),
-                    Integer.parseInt(dateTo[0])));
+            model.setDateTo((LocalDate.parse(date[1], DateTimeFormatter.ofPattern("dd.MM.yyyy"))));
         }
         data.add(model);
     }
@@ -61,15 +59,15 @@ public class InputDataImp implements InputData {
     private void AddWaitingTimeModel(String[] dataInLine) throws Exception {
         WaitingTimeModel model = new WaitingTimeModel();
         setDataToModel(model, dataInLine);
-        String[] date = dataInLine[4].split("\\.");
-        model.setDate(LocalDate.of(Integer.parseInt(date[2]), Integer.parseInt(date[1]),
-                Integer.parseInt(date[0])));
+        model.setDate(LocalDate.parse(dataInLine[4], DateTimeFormatter.ofPattern("dd.MM.yyyy")));
         model.setTime(Integer.parseInt(dataInLine[5]));
         data.add(model);
     }
 
     private void setDataToModel(BasicModel model, String[] dataInLine) throws Exception {
-        model.setCharacter(dataInLine[0].charAt(0));
+        if (dataInLine[0].charAt(0) == 'C') {
+            model.setCharacter(Character.C);
+        } else model.setCharacter(Character.D);
         String[] dataInLine1 = dataInLine[1].split("\\.");
         String[] dataInLine2 = dataInLine[2].split("\\.");
         model.setResponse(dataInLine[3].charAt(0));

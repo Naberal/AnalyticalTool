@@ -1,6 +1,6 @@
-package com.tool.DAO;
+package main.java.DAO;
 
-import com.tool.model.BasicModel;
+import main.java.model.BasicModel;
 
 import java.io.File;
 import java.util.List;

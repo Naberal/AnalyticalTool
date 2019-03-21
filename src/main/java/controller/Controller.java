@@ -1,8 +1,8 @@
-package com.tool.controller;
+package main.java.controller;
 
-import com.tool.DAO.AnalyticImp;
-import com.tool.DAO.InputDataImp;
-import com.tool.view.PrintResult;
+import main.java.DAO.AnalyticImp;
+import main.java.DAO.InputDataImp;
+import main.java.view.PrintResult;
 
 import java.io.File;
 import java.util.List;

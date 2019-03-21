@@ -1,10 +1,10 @@
-package com.tool.model;
+package main.java.model;
 
 /**
  * Base model of the data line which consists of shared data of the query and the waiting time.
  */
 public class BasicModel {
-    private char character;
+    private Character character;
     private long service;
     private long variation;
     private long question;
@@ -15,14 +15,12 @@ public class BasicModel {
     public BasicModel() {
     }
 
-    public char getCharacter() {
+    public Character getCharacter() {
         return character;
     }
 
-    public void setCharacter(char character) {
-        if (character == 'C' || character == 'D') {
+    public void setCharacter(Character character) {
             this.character = character;
-        } else throw new IllegalArgumentException();
     }
 
     public long getService() {
@@ -92,24 +90,21 @@ public class BasicModel {
      * @return true if objects similar
      */
     public boolean similar(BasicModel o) {
-
-        BasicModel that = o;
-
-        if (response != that.response) return false;
-        if (service != that.service) {
-            if (that.service != 0) return false;
+        if (response != o.response) return false;
+        if (service != o.service) {
+            if (o.service != 0) return false;
         }
-        if (question != that.question) {
-            if (that.question != 0) return false;
+        if (question != o.question) {
+            if (o.question != 0) return false;
         }
-        if (variation != that.variation) {
-            if (that.variation != 0) return false;
+        if (variation != o.variation) {
+            if (o.variation != 0) return false;
         }
-        if (category != that.category) {
-            if (that.category != 0) return false;
+        if (category != o.category) {
+            if (o.category != 0) return false;
         }
-        if (subCategory != that.subCategory) {
-            if (that.subCategory != 0) return false;
+        if (subCategory != o.subCategory) {
+            if (o.subCategory != 0) return false;
         }
         return true;
     }
