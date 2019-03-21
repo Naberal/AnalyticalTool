@@ -1,5 +1,5 @@
 Console analytical tool for evaluating the processing time of client requests.
-In console write path to file with data.
+In console write path to .xtx file with data.
 Data in file consists of 10 different service, each with 3 variations. Questions are divided into 10
 types, each can belong to 20 categories, a category can have 5 sub categories.
 First data line contains count S of all lines.
